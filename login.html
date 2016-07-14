@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+
+<html>
+    
+<head>
+        
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Login Page</title>
+        
+<link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
+        
+<link type="text/css" rel="stylesheet" href="css/style.css"/>
+    
+</head>
+    
+<body>
+        
+<form class="login-form" id="form" action="authenticate" method="post">
+
+<div class="container">            
+<h1><center>Login</center></h1>
+            
+<br>
+<div class="input-group">
+                
+<span class="input-group-addon">
+                    
+<i class="glyphicon glyphicon-user"></i>
+                
+</span>
+                
+<input id="input" type="text" name="username" class="form-control" required="required" autofocus="autofocus" placeholder="Username"/>
+            
+</div>
+ 
+<br>           
+<div class="input-group" style="margin-top:  10px">
+                
+<span class="input-group-addon">
+                    
+<i class="glyphicon glyphicon-lock"></i>
+                
+</span>
+                
+<input type="password" name="password" class="form-control login-input" required="required" placeholder="Password"/>
+            
+</div>
+
+<br>            
+<center><div class="input-group" style="margin-top: 10px">
+                
+<input type="submit" value="Login" class="btn btn-primary btn-lg btn-block" style="width: 318px;"/>
+            
+</div>
+            
+<div class="register">
+                
+Not Registered yet? <a href="new.html">Register</a> here.
+            
+</div>
+ </center>       
+</form>
+        
+<script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ 
+<script>
+if (!("autofocus" in document.createElement("input"))) {
+    document.getElementById("my-input").focus();
+  }
+</script>       
+<script src="js/bootstrap.js"></script>
+    
+</body>
+
+</html>
