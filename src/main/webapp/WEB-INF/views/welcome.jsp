@@ -130,7 +130,7 @@ input::-webkit-input-placeholder {
             
             <ul class = "dropdown-menu">
                <li><a href = "searchCar">Search Cars</a></li>
-               <li><a href = "upcoming">Upcoming Cars</a></li>
+               <li><a href = "uc">Upcoming Cars</a></li>
                <li><a href = "#">Offers & Discounts</a></li>
                
                <li class = "divider"></li>
@@ -194,8 +194,8 @@ input::-webkit-input-placeholder {
    
 <div><ul class="nav navbar-nav navbar-right">
 
- <li><a href="welcome"><span class="glyphicon glyphicon-user" ></span> Welcome, admin&nbsp&nbsp&nbsp</a></li>
-      <li><a href="login"><span class="glyphicon glyphicon-log-out" ></span> Logout&nbsp&nbsp&nbsp</a></li>
+ <li><a href="welcome"><span class="glyphicon glyphicon-user" ></span>${message}  &nbsp&nbsp&nbsp</a></li>
+      <li><a href="logout"><span class="glyphicon glyphicon-log-out" ></span> Logout&nbsp&nbsp&nbsp</a></li>
       </ul>
 </div>
    </div>
@@ -205,8 +205,9 @@ input::-webkit-input-placeholder {
 </head>
 <body>
 <br><br><br><br>
-<h3><center>Congratulations Admin !!!You have Successfully Logged in.</center></h3>
+<h3><center>${message} !!!You have Successfully Logged in.</center></h3>
 <br><br><br>
+
 
 <form action="add"  method="GET"/>
 <center><input type="submit" value="Add Product"></center></form>

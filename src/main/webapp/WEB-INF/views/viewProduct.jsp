@@ -40,8 +40,8 @@
             
             <ul class = "dropdown-menu">
                <li><a href = "#">Search Cars</a></li>
-               <li><a href = "#">Upcoming Cars</a></li>
-               <li><a href = "#">Offers & Discounts</a></li>
+               <li><a href = "uc">Upcoming Cars</a></li>
+               <li><a href = "newList">New Cars</a></li>
                
                <li class = "divider"></li>
                <li><a href = "#">Dealers & Service Centers</a></li>
@@ -61,7 +61,7 @@
             </a>
             
             <ul class = "dropdown-menu">
-               <li><a href = "#">Cars In Your City</a></li>
+               <li><a href = "oldList">Old Cars</a></li>
                <li><a href = "#">Search Used Cars</a></li>
                <li><a href = "#">Used Car Valuation</a></li>
                

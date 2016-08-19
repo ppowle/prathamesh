@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Categories</title>
+<title>Product List</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -41,7 +41,7 @@
             <ul class = "dropdown-menu">
                <li><a href = "#">Search Cars</a></li>
                <li><a href = "uc">Upcoming Cars</a></li>
-               <li><a href = "#">Offers & Discounts</a></li>
+               <li><a href = "newList">New Cars</a></li>
                
                <li class = "divider"></li>
                <li><a href = "#">Dealers & Service Centers</a></li>
@@ -61,7 +61,7 @@
             </a>
             
             <ul class = "dropdown-menu">
-               <li><a href = "#">Cars In Your City</a></li>
+               <li><a href = "oldList">Old Cars</a></li>
                <li><a href = "#">Search Used Cars</a></li>
                <li><a href = "#">Used Car Valuation</a></li>
                
@@ -107,59 +107,49 @@
 </div>
 
 </nav>
-${message}
-<div class="container">
-<center><h2><b>List of available Login</b></h2></center>
+<body>
+<center><h4>Wish List Products</font></h4>
 <form:form  >
 
 
-<table class="table table-hover">
+<div class="container">
+  
+  <table class="table table-hover">
     <thead>
       <tr>
-	    <th>S.No</th>
-		<th>User Name</th>
-		<th>Password</th>
-		<th>Name</th>
-		<th>Address</th>
-		<th>Country</th>
-		<th>Pin Code</th>
-		<th>Email id</th>
-	</tr>
+        <th align="left">S.No</th>
+		<th align="left">Pro Id</th>
+		<th align="left">Name</th>
+		<th align="left">Category</th>
+		<th align="left">User Id</th>
+		<th align="left">Quantity</th>
+		<th align="left">Image</th>
+      </tr>
     </thead>
     <tbody>
-     <c:forEach items="${loginList}" var="login" varStatus="status">
-		<center><tr>
+      <c:forEach items="${wishList}" var="wish" varStatus="status">
+		<tr>
 			<td align="left">${status.count}</td>
-			<td align="left">${login.username}</td>
-			<td align="left">${login.password}</td>
-			<td align="left">${login.name}</td>
-			<td align="left">${login.addr}</td>
-			<td align="left">${login.countr}</td>
-			<td align="left">${login.pinc}</td>
-			<td align="left">${login.mail}</td>
+			<td align="left">${wish.pid}</td>
+			<td align="left">${wish.pname}</td>
+			<td align="left">${wish.pcategory}</td>
+			<td align="left">${wish.uid}</td>
+			<td align="left">${wish.quantity}</td>
+			<td> <img src= " ${wish.pimage} " height="100" width="100"></td>
 			<td>
            <!--   <c:out value="${prod.fpath}"/>-->
     
           
           </td> 
-          	<td width="50"><a href="<c:url value="/edit/${login.id}"/>"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
-			 <td width="50"><a href="<c:url value="/delete/${login.id}"/>"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Trash</button></a>
-		</td>
-			
-		    
+          	<td width="50"><a href="<c:url value=""/>"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
+			 <td width="50"><a href="<c:url value="/project/delete/${wish.pid}"/>"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Trash</button></a>
+			         
 		</tr>
-		</center>
 	</c:forEach>
-      
-    </tbody>
+     </tbody>
   </table>
-
-</form:form>
-
-
-
 </div>
-
-
+</form:form>
+</center>
 </body>
 </html>

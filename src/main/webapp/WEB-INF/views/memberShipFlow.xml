@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<!-- Executed when webFlow is triggered -->
+	<on-start>
+		<evaluate expression="handler.initFlow()" result="flowScope.Login" />
+	</on-start>
+	
+
+		<view-state id="start" view="new" model="flowScope.Login">
+		<transition on="submit" to="confirmDetails" />
+		
+	</view-state>
+
+	
+
+	<view-state id="confirmDetails" view="confirmDetails" model="flowScope.Login">
+		<transition on="edit" to="start" />
+		<transition on="submit" to="addLogin"/>
+	</view-state>
+ 
+ 	<action-state id="addLogin">
+		<evaluate expression="loginController.addLogin(Login)"></evaluate>
+		<transition on="success" to="index" />
+	
+	</action-state>
+	<end-state id="index" view="index" />
+
+	
+</flow>

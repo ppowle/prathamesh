@@ -27,9 +27,9 @@ public class LoginDAOImpl implements LoginDAO {
 	public List<Login> list() {
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
-		List<Login> ProductList = session.createQuery("from Login").list();
-		session.close();
-		return ProductList;
+		List<Login> LoginList = session.createQuery("from Login").list();
+
+		return LoginList;
 	}
 
 	@Transactional
@@ -48,7 +48,7 @@ public class LoginDAOImpl implements LoginDAO {
 
 	@Transactional
 	public boolean validate(String uname, String password) {
-		String hql = "from Login where uname= '" + uname + "' and " + " password ='" + password + "'";
+		String hql = "from Login where username= '" + uname + "' and " + " password ='" + password + "'";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 
 		@SuppressWarnings("unchecked")
@@ -63,7 +63,7 @@ public class LoginDAOImpl implements LoginDAO {
 
 	@Transactional
 	public boolean validateuser(String uname, String password) {
-		String hql = "from Login where uname= '" + uname + "' and " + " admin ='1'";
+		String hql = "from Login where username= '" + uname + "' and " + " role ='admin'";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 
 		@SuppressWarnings("unchecked")
@@ -76,8 +76,18 @@ public class LoginDAOImpl implements LoginDAO {
 		return false;
 	}
 
-	public com.Login get(String id) {
-		// TODO Auto-generated method stub
+	@Transactional
+	public Login get(String id) {
+		String hql = "from Login where username= '" + id + "'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+
+		@SuppressWarnings("unchecked")
+		List<Login> list = (List<Login>) query.list();
+
+		if (list != null && !list.isEmpty()) {
+			return list.get(0);
+		}
+
 		return null;
 	}
 }

@@ -40,7 +40,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
    
 
-    </style>
+  
 
     
 
@@ -217,6 +217,7 @@ input::-webkit-input-placeholder {
    </div>
 </nav>
 <br><br>
+
  <c:forEach items="${productList}" var="product" varStatus="status">
 			<div class="row">
 				<div class="col-md-4">
@@ -226,10 +227,14 @@ input::-webkit-input-placeholder {
 						
 						<center><p><b>&#8377; ${product.p_price}</b></p></center>
 					</a>
+					
+					
+					<a href="wish/addTo/${product.id}">Add to WishList</a>
 				</div>
 				
 			</div>
 </c:forEach>
+
     
     <footer>
         Copyright &copy2008-2016 Powered By <b>Prathamesh Kishor Powle Software Pvt. Ltd.</b> All

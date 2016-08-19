@@ -122,7 +122,7 @@ input::-webkit-input-placeholder {
     
 </head>
 <body>
-${message}
+
 <nav class = "navbar navbar-default navbar-fixed-top" role = "navigation">
     <div class="container-fluid">
    <div class = "navbar-header">
@@ -146,7 +146,7 @@ ${message}
             
             <ul class = "dropdown-menu">
                <li><a href = "searchCar">Search Cars</a></li>
-               <li><a href = "upcoming">Upcoming Cars</a></li>
+               <li><a href = "uc">Upcoming Cars</a></li>
                <li><a href = "#">Offers & Discounts</a></li>
                
                <li class = "divider"></li>
@@ -209,7 +209,9 @@ ${message}
    </div>
    
 <div><ul class="nav navbar-nav navbar-right">
-<input type="search" placeholder="Search">
+ <li><a href="welcome"><span class="glyphicon glyphicon-user" ></span> ${message}  &nbsp&nbsp</a></li>
+<li><a href="addToo"><span class="glyphicon glyphicon-heart" ></span> Wish List(${wishSize})  </a></li>
+<li><a href="logout"><span class="glyphicon glyphicon-log-out" ></span> Logout&nbsp&nbsp&nbsp</a></li>
         
       </ul>
 </div>
@@ -218,8 +220,8 @@ ${message}
 </nav>
 <br><br><br><br>
 <center><form:form action="login1" method="post" enctype="multipart/form-data">
-   <b>Successfully added data to the database</b><br><br>
-	
+   <b><h2>${message}!!! You have successfully Logged in</h2></b><br><br>
+	<a href="index" class="btn btn-primary">View Home Page</button></a><br><br>
 <button type="submit" class="btn btn-primary">View Database</button>
 	</form:form></center>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

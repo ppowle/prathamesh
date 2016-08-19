@@ -3,6 +3,8 @@ package com;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +21,33 @@ public class LoginController {
 	private LoginDAO loginDAO;
 
 	@Autowired
+	private WishDAO wishDAO;
+
+	@Autowired
+	private Wish wish;
+
+	@Autowired
+	private Product product;
+
+	@Autowired
+	private Login login;
+
+	@Autowired
 	ServletContext req;
 
 	@RequestMapping("/")
-	public String show() {
-		return "index";
+	public ModelAndView show(HttpSession session, HttpServletRequest request) {
+
+		ModelAndView mv;
+		mv = new ModelAndView("index");
+		String loggedInUserid = (String) session.getAttribute("loggedInUserID");
+		mv.addObject("wish", wish);
+		List<Wish> wishList = wishDAO.list(loggedInUserid);
+		mv.addObject("wishSize", wishList.size());
+		mv.addObject("isRegister", "true");
+		mv.addObject("isLogin", "true");
+		mv.addObject("isLogout", "false");
+		return mv;
 	}
 
 	@RequestMapping("/new")
@@ -47,8 +71,22 @@ public class LoginController {
 	}
 
 	@RequestMapping("/index")
-	public String show5() {
-		return "index";
+	public ModelAndView home(HttpSession session, HttpServletRequest request) {
+
+		ModelAndView mv;
+		mv = new ModelAndView("index");
+		String loggedInUserid = (String) session.getAttribute("loggedInUserID");
+		mv.addObject("wish", wish);
+		List<Wish> wishList = wishDAO.list(loggedInUserid);
+		mv.addObject("wishSize", wishList.size());
+		session = request.getSession(false);
+		if (session != null) {
+			mv.addObject("isRegister", "false");
+			mv.addObject("isLogin", "false");
+			mv.addObject("isLogout", "true");
+		}
+		return mv;
+
 	}
 
 	@RequestMapping("/searchCar")
@@ -57,11 +95,15 @@ public class LoginController {
 	}
 
 	@RequestMapping("/addLogin")
-	public ModelAndView addLogin(@ModelAttribute Login login) {
 
+	public String addLogin(@ModelAttribute Login login) {
+
+		String status = "success";
+		login.setRole("user");
+		System.out.println(login.getUsername());
 		loginDAO.saveOrUpdate(login);
 
-		return new ModelAndView("/home");
+		return status;
 
 	}
 
@@ -86,28 +128,82 @@ public class LoginController {
 
 	}
 
+	/*
+	 * @RequestMapping(value = "/login", method = RequestMethod.GET) public
+	 * ModelAndView login(@RequestParam(value = "error", required = false)
+	 * String error,
+	 * 
+	 * @RequestParam(value = "logout", required = false) String logout) {
+	 * 
+	 * ModelAndView model = new ModelAndView(); if (error != null) {
+	 * model.addObject("error", "Invalid username and password!"); }
+	 * 
+	 * if (logout != null) { model.addObject("msg",
+	 * "You've been logged out successfully."); } model.setViewName("login");
+	 * 
+	 * return model;
+	 * 
+	 * }
+	 */
+
 	@RequestMapping("/validate")
 	public ModelAndView isValidUser(@RequestParam(value = "username") String username,
-			@RequestParam(value = "password") String password) {
+
+			@RequestParam(value = "password") String password, HttpSession session, HttpServletRequest request) {
 
 		String message;
 
 		ModelAndView mv;
 		if (loginDAO.validate(username, password)) {
+			login = loginDAO.get(username);
+			session = request.getSession(true);
+			if (session != null)
+				session.setAttribute("loggedInUser", login.getUsername());
+			session.setAttribute("loggedInUserID", login.getUsername());
+			session.setAttribute("product", product);
+
 			if (loginDAO.validateuser(username, password)) {
 
+				message = "Welcome," + username;
 				mv = new ModelAndView("welcome");
+				mv.addObject("message", message);
+				wish = wishDAO.get(username);
+				mv.addObject("wish", wish);
+				List<Wish> wishList = wishDAO.list(username);
+				mv.addObject("wishList", wishList);
+				mv.addObject("wishSize", wishList.size());
 			} else {
 
-				mv = new ModelAndView("index");
+				mv = new ModelAndView("home");
+				message = "Welcome," + username;
+				mv.addObject("message", message);
+				List<Wish> wishList = wishDAO.list(username);
+				mv.addObject("wishList", wishList);
+				mv.addObject("wishSize", wishList.size());
 			}
 		} else {
 			message = "Invalid Username or Password";
 			mv = new ModelAndView("login");
 			mv.addObject("message", message);
+
 		}
 
-		mv.addObject("username", username);
 		return mv;
 	}
+
+	@RequestMapping("/logout")
+	public ModelAndView doLogout(HttpSession session, HttpServletRequest request) {
+
+		session = request.getSession(false);
+		if (session != null)
+			session.invalidate();
+		ModelAndView mv;
+		mv = new ModelAndView("index");
+
+		mv.addObject("isRegister", "true");
+		mv.addObject("isLogin", "true");
+		mv.addObject("isLogout", "false");
+		return mv;
+	}
+
 }

@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -145,28 +147,13 @@ input::-webkit-input-placeholder {
    filter:none !important;
 }
 </style>
-
-
-
-
-
   </head>
   <body>
-  
-  
-  
-  
-   
   <header>  
-       
+  </header>
 
-</header>
-
-
-
-
-
-  <nav class = "navbar navbar-default navbar-fixed-top" role = "navigation">
+	<nav class = "navbar navbar-default navbar-fixed-top" role = "navigation">
+ 
     <div class="container-fluid">
    <div class = "navbar-header">
    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -174,13 +161,13 @@ input::-webkit-input-placeholder {
    <span class="icon-bar"></span>
    <span class="icon-bar"></span>
    </button>
-      <a class = "navbar-brand" href = "index"><strong><i class="fa fa-car" style="font-size:20px";></i>uto Mall</strong></a>
+      <a class = "navbar-brand" href = ""><strong><i class="fa fa-car" style="font-size:20px";></i>uto Mall</strong></a>
    </div>
    <div class="collapse navbar-collapse" id="myNavbar">
    <div>
       <ul class = "nav navbar-nav">
    
-	<li class = "active"><a href = "index.html">Home</a></li>
+	<li class = "active"><a href = "">Home</a></li>
          <li class = "dropdown">
             <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
                New
@@ -189,11 +176,11 @@ input::-webkit-input-placeholder {
             
             <ul class = "dropdown-menu">
                <li><a href = "searchCar">Search Cars</a></li>
-               <li><a href = "uc">Upcoming Cars</a></li>
-               <li><a href = "#">Offers & Discounts</a></li>
+               <li><a href ="uc">Upcoming Cars</a></li>
+               <li><a href = "newList">New Cars</a></li>
                
                <li class = "divider"></li>
-               <li><a href = "#">Dealers & Service Centers</a></li>
+               <li><a href = "temp">Dealers & Service Centers</a></li>
                <li><a href = "#">Helpline Numbers</a></li>
                <li><a href = "#">Further Research</a></li>
 		
@@ -210,7 +197,7 @@ input::-webkit-input-placeholder {
             </a>
             
             <ul class = "dropdown-menu">
-               <li><a href = "#">Cars In Your City</a></li>
+               <li><a href = "oldList">Used Cars</a></li>
                <li><a href = "#">Search Used Cars</a></li>
                <li><a href = "#">Used Car Valuation</a></li>
                
@@ -252,13 +239,27 @@ input::-webkit-input-placeholder {
    </div>
    
 <div><ul class="nav navbar-nav navbar-right">
-<input type="search" placeholder="Search">
-        <li><a href="login"><span class="glyphicon glyphicon-log-in" ></span> Login&nbsp&nbsp&nbsp</a></li>
-        <li><a href="new"><span class="glyphicon glyphicon-user" ></span> Register&nbsp&nbsp&nbsp</a></li>
+
+             <li><form action="search" class="search-form"></li>
+<input type="search" name="search" placeholder="Search">
+</form>
+		<c:if test="${isLogin==true}">
+        <li><a href="login"><span class="glyphicon glyphicon-log-in" ></span> Login</a></li>
+        </c:if>
+        <c:if test="${isRegister==true}">
+        <li><a href="memberShip"><span class="glyphicon glyphicon-user" ></span> Register</a></li>
+        </c:if>
+        <c:if test="${isLogout==true}">
+        <li><a href="logout"><span class="glyphicon glyphicon-log-out" ></span> Logout</a></li>
+        </c:if>
+        
+        <li><a href="addToo"><span class="glyphicon glyphicon-heart" ></span> Wish List(${wishSize})  </a></li>
+        
       </ul>
 </div>
    </div>
    </div>
+  
 </nav>
 <div>
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -300,23 +301,16 @@ input::-webkit-input-placeholder {
   </div>
 
   <!-- Left and right controls -->
-  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
+ 
   
 </div>	
- <div class="ic">More Website Templates @ TemplateMonster.com. November12, 2012!</div>
+ 
       <div class="block-1 box-1">
-      
+     
         <div>
             <img src="resources/images/page1-img1.jpg" alt="">
             <p class="text-1">Schedule <strong>Free Service</strong></p>
-            <p class="upper"><a href="http://blog.templatemonster.com/free-website-templates/" class="link" rel="nofollow" target="_blank">Click here</a> to schedule a free first service for your car with added benefits.</p>
+            <p class="upper"><a href="" class="link" rel="nofollow" target="_blank">Click here</a> to schedule a free first service for your car with added benefits.</p>
             <a href="#" class="button">Schedule a Service</a>
         </div>
         <div>
@@ -343,22 +337,25 @@ input::-webkit-input-placeholder {
             <p class="upper">Get a custom paint job done by our graphic designers team and modify your ride.  </p>
             <a href="#" class="button">Get a Paint Job</a>
         </div>
+       
       </div>
-      
+     
       <div class="block-2 wrap pad-2">
       	<div class="box-2">
         	<h2 class="clr-1">Write your Reviews</h2>
+        	
             <div class="comments">
             	<div>
-                	Post your Review here
-                	<div class="comments-corner"></div>
+                	
+  					<input type="text" class="form-control" id="text" placeholder="Post your Review here">
+                
                 </div>
                 <a href="contact">Contact us</a>
             </div>
             <div class="comments">
             	<div>
-                	post your comments here
-                	<div class="comments-corner"></div>
+                	
+                	<input type="text" class="form-control" id="text1" placeholder="Post your comments here">
                 </div>
                 <a href="about">about us</a>
             </div>

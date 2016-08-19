@@ -33,6 +33,15 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Transactional
+	public List<Product> categorylist(String id) {
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<Product> ProductList = session.createQuery("from Product where p_type like '%" + id + "%'").list();
+		session.close();
+		return ProductList;
+	}
+
+	@Transactional
 	public void saveOrUpdate(Product product) {
 
 		sessionFactory.getCurrentSession().saveOrUpdate(product);
@@ -62,7 +71,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Transactional
 	public Product get(String id) {
-		String hql = "from Product where id=" + id;
+		String hql = "from Product where id = '" + id + "'";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 
 		@SuppressWarnings("unchecked")
@@ -73,6 +82,30 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 
 		return null;
+
+	}
+
+	@Transactional
+	public List<Product> search(String search) {
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<Product> ProductList = session.createQuery("from Product where lower(p_name) LIKE lower('%" + search
+				+ "%') or lower(p_class) LIKE lower('%" + search + "%') or lower(p_engine) LIKE lower('%" + search
+				+ "%') or lower(p_price) LIKE lower('%" + search + "%') or lower(p_type) LIKE lower('%" + search
+				+ "%') or lower(p_owner) LIKE lower('%" + search + "%')").list();
+		session.close();
+		return ProductList;
+	}
+
+	@Transactional
+	public List<Product> search1(String name, String type, String owner, String price) {
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		List<Product> ProductList = session.createQuery("from Product where lower(p_name) LIKE lower('%" + name
+				+ "%') and lower(p_type) LIKE lower('%" + type + "%') and lower(p_owner) LIKE lower('%" + owner
+				+ "%') and lower(p_price) BETWEEN " + price + "").list();
+		session.close();
+		return ProductList;
 	}
 
 }

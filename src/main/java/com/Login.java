@@ -1,5 +1,7 @@
 package com;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,10 +14,11 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "LOGIN")
 @Component
-public class Login {
+public class Login implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private String id;
-	private String uname;
+	private String username;
 	private String password;
 	private String name;
 	private String addr;
@@ -23,7 +26,8 @@ public class Login {
 	private int pinc;
 	private String mail;
 	private String sex;
-	private String admin;
+	private String role;
+	private String enabled;
 
 	@Id
 	@Column(name = "ID")
@@ -36,12 +40,12 @@ public class Login {
 		this.id = id;
 	}
 
-	public String getUname() {
-		return uname;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUname(String uname) {
-		this.uname = uname;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -100,11 +104,20 @@ public class Login {
 		this.sex = sex;
 	}
 
-	public String getAdmin() {
-		return admin;
+	public String getRole() {
+		return role;
 	}
 
-	public void setAdmin(String admin) {
-		this.admin = admin;
+	public void setRole(String role) {
+		this.role = role;
 	}
+
+	public String getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
+
 }
